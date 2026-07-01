@@ -1,0 +1,210 @@
+:root {
+    --bg: #0b0d12;
+    --bg-glow: #6366f1;
+    --surface: #14171f;
+    --surface-hover: #191d27;
+    --border: #242a37;
+    --border-focus: #6366f1;
+    --text: #eceef4;
+    --text-muted: #8b92a3;
+    --accent: #6366f1;
+    --accent-hover: #7c7ff5;
+    --accent-contrast: #ffffff;
+    --danger: #f87171;
+    --radius: 14px;
+    --radius-sm: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: var(--text);
+    background: radial-gradient(1000px 600px at 50% -10%, rgba(99, 102, 241, 0.18), transparent 60%), var(--bg);
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+    line-height: 1.55;
+}
+
+.app {
+    width: 100%;
+    max-width: 560px;
+}
+
+.app__header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    color: var(--accent-contrast);
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+    margin-bottom: 18px;
+}
+
+.app__title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+}
+
+.app__subtitle {
+    margin: 0 auto;
+    max-width: 420px;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.panel,
+.result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.field {
+    display: block;
+    margin-bottom: 18px;
+}
+
+.field__label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.field__input {
+    width: 100%;
+    padding: 13px 15px;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field__input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+}
+
+.btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease, opacity 0.15s ease;
+}
+
+.btn--primary {
+    color: var(--accent-contrast);
+    background: var(--accent);
+}
+
+.btn--primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.btn:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+.btn:disabled {
+    opacity: 0.55;
+    cursor: default;
+}
+
+.result__thumb {
+    width: 100%;
+    border-radius: var(--radius-sm);
+    margin-bottom: 16px;
+}
+
+.result__title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.result__meta {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.progress {
+    height: 8px;
+    margin-top: 16px;
+    border-radius: 6px;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.progress__fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), #8b5cf6);
+    transition: width 0.3s ease;
+}
+
+.status {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.error {
+    font-size: 13px;
+    color: var(--danger);
+    margin-top: 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.app__footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}

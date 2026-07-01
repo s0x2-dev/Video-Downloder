@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Bundled binaries
+ffmpeg/
+yt-dlp
+yt-dlp.exe
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/

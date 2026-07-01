@@ -1,0 +1,25 @@
+{
+  "name": "video-downloader",
+  "version": "1.0.0",
+  "description": "Self-hosted web app to download video and audio from 1000+ sites as MP4/MP3, powered by yt-dlp and ffmpeg.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "yt-dlp",
+    "ffmpeg",
+    "video-downloader",
+    "mp4",
+    "mp3",
+    "express"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
