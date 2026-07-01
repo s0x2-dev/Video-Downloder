@@ -1,0 +1,21 @@
+@echo off
+setlocal
+
+REM ============================================================
+REM  Video Downloader - stop the server (template)
+REM
+REM  Copy this file and rename the copy to stop-downloader.bat,
+REM  then double-click it to shut down the local server.
+REM  Runs hidden (no taskbar window) and closes itself.
+REM ============================================================
+
+set "PORT=3000"
+
+if not "%~1"=="__hidden" (
+    powershell -NoProfile -WindowStyle Hidden -Command "Start-Process -FilePath '%~f0' -ArgumentList '__hidden' -WindowStyle Hidden"
+    exit /b
+)
+
+REM Kill whatever is listening on PORT (the node server).
+powershell -NoProfile -WindowStyle Hidden -Command "Get-NetTCPConnection -LocalPort %PORT% -State Listen -ErrorAction SilentlyContinue | ForEach-Object { Stop-Process -Id $_.OwningProcess -Force -ErrorAction SilentlyContinue }"
+exit /b
