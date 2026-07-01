@@ -129,4 +129,7 @@ service of the sites you download from.
 
 ## License
 
-Released under the [MIT License](LICENSE).
+Proprietary — personal use only. You may view the source and run the app for
+your own personal, non-commercial use. Modifying, redistributing, or using it
+commercially is not permitted without written permission. See [LICENSE](LICENSE)
+for the full terms.
