@@ -2,77 +2,140 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Downloader</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetch — save any video</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@1,400;1,500;1,600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
-    <main class="app">
-        <header class="app__header">
-            <div class="logo" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3v12" />
-                    <path d="m7 10 5 5 5-5" />
-                    <path d="M5 21h14" />
-                </svg>
+<body class="grain">
+  <div class="glow" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <nav class="nav reveal-fade-down" style="--delay: 0.1s">
+    <a href="#" class="nav__brand">Fetch</a>
+    <span class="nav__pill">
+      <span class="nav__dot" aria-hidden="true"></span>
+      yt-dlp engine
+    </span>
+  </nav>
+
+  <main class="stage">
+    <div class="head">
+      <p class="head__eyebrow reveal-up" style="--delay: 0.2s">1000+ supported platforms</p>
+      <h1 class="head__title">
+        <span class="reveal-up" style="--delay: 0.3s">Every video,</span>
+        <span class="head__title-em reveal-up" style="--delay: 0.42s">yours to keep.</span>
+      </h1>
+      <p class="head__lede reveal-up" style="--delay: 0.56s">
+        Paste a link from almost any site, pick a format, and save it — MP4 or MP3,
+        right on your own machine.
+      </p>
+    </div>
+
+    <section class="panel reveal-up" style="--delay: 0.7s" aria-label="Downloader">
+      <div class="panel__form">
+        <div class="field">
+          <label class="field__label" for="url">Video link</label>
+          <input type="text" id="url" class="field__input" placeholder="https://..." autocomplete="off"
+            spellcheck="false" />
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="quality">Format</label>
+          <div class="select-wrap">
+            <select id="quality" class="field__input">
+              <option value="best">Best available</option>
+              <option value="1080">1080p</option>
+              <option value="720" selected>720p</option>
+              <option value="480">480p</option>
+              <option value="audio">Audio only — MP3</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="toggle" for="forceMp4">
+          <input type="checkbox" id="forceMp4" class="toggle__input" />
+          <span class="toggle__switch" aria-hidden="true"></span>
+          <span class="toggle__label">Force MP4<em>plays everywhere</em></span>
+        </label>
+
+        <button id="infoBtn" class="pill pill--ghost">
+          <span class="pill__fill" aria-hidden="true"></span>
+          <span class="pill__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7" />
+              <path d="M7 7h10v10" />
+            </svg>
+          </span>
+          <span class="pill__label">Analyze link</span>
+        </button>
+      </div>
+
+      <div class="panel__divider" aria-hidden="true"></div>
+
+      <div class="panel__output" id="output">
+        <div class="preview">
+          <img id="thumb" class="preview__img" alt="" hidden />
+          <div class="preview__empty" id="outputEmpty">
+            <span class="preview__empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="3" />
+                <path d="m10 9 5 3-5 3z" />
+              </svg>
+            </span>
+            <p class="preview__empty-text">Your video shows up here once you analyze a link.</p>
+          </div>
+        </div>
+
+        <div class="output__result" id="card" hidden>
+          <div class="media">
+            <p class="media__eyebrow">Ready to save</p>
+            <h2 class="media__title" id="title"></h2>
+            <p class="media__meta" id="meta"></p>
+          </div>
+
+          <div class="progress" id="barWrap" hidden>
+            <div class="progress__head">
+              <span class="progress__status" id="status">Preparing...</span>
+              <span class="progress__pct" id="pct">0.0%</span>
             </div>
-            <h1 class="app__title">Video Downloader</h1>
-            <p class="app__subtitle">
-                Paste a link from almost any site and download it as MP4 or MP3.
-                Powered by yt-dlp — 1000+ supported platforms.
-            </p>
-        </header>
-
-        <section class="panel">
-            <label class="field">
-                <span class="field__label">Video URL</span>
-                <input type="text" id="url" class="field__input" placeholder="https://..." autocomplete="off"
-                    spellcheck="false" />
-            </label>
-
-            <label class="field">
-                <span class="field__label">Quality</span>
-                <select id="quality" class="field__input">
-                    <option value="best">Best available</option>
-                    <option value="1080">1080p</option>
-                    <option value="720" selected>720p</option>
-                    <option value="480">480p</option>
-                    <option value="audio">Audio only (MP3)</option>
-                </select>
-            </label>
-
-            <label class="checkbox">
-                <input type="checkbox" id="forceMp4" />
-                <span>Force MP4 re-encode (slower, but plays everywhere)</span>
-            </label>
-
-            <button id="infoBtn" class="btn btn--primary">Get info</button>
-        </section>
-
-        <section class="result" id="card" hidden>
-            <img id="thumb" class="result__thumb" alt="" hidden />
-            <div class="result__title" id="title"></div>
-            <div class="result__meta" id="meta"></div>
-
-            <button id="downloadBtn" class="btn btn--primary">Download</button>
-
-            <div class="progress" id="barWrap" hidden>
-                <div class="progress__fill" id="bar"></div>
+            <div class="progress__track">
+              <div class="progress__fill" id="bar"></div>
             </div>
+          </div>
 
-            <div class="status" id="status"></div>
-            <div class="error" id="error"></div>
-        </section>
+          <button id="downloadBtn" class="pill pill--solid">
+            <span class="pill__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4v11" />
+                <path d="m7 11 5 5 5-5" />
+                <path d="M5 20h14" />
+              </svg>
+            </span>
+            <span class="pill__label">Download</span>
+          </button>
 
-        <footer class="app__footer">
-            For personal use. Respect the copyright and terms of the sites you download from.
-        </footer>
-    </main>
+          <p class="output__error" id="error"></p>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <script src="app.js"></script>
+  <footer class="foot">
+    <span class="foot__brand">Fetch</span>
+    <span class="foot__note">For personal use. Respect the copyright and terms of the sites you download from.</span>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 
 </html>
