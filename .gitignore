@@ -20,3 +20,6 @@ Thumbs.db
 
 # Local tooling
 .claude/
+
+# Personal launcher (contains an absolute path); ship the .example instead
+start-downloader.bat

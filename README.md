@@ -59,9 +59,25 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Usage
 
 1. Paste a video URL into the input field.
-2. Click **Get info** to preview the title, thumbnail, and duration.
-3. Choose a quality preset (and optionally enable **Force MP4 re-encode**).
+2. Click **Analyze link** to preview the title, thumbnail, and duration.
+3. Choose a quality preset (and optionally enable **Force MP4**).
 4. Click **Download** — the file is saved to your device when it finishes.
+
+## One-click launcher (Windows)
+
+Instead of opening a terminal every time, you can start the app with a single
+double-click:
+
+1. Copy `start-downloader.bat.example` and rename the copy to
+   `start-downloader.bat`.
+2. Open it in a text editor and set `PROJECT_DIR` to this project's full path.
+3. Move the copy anywhere convenient (Desktop, taskbar, etc.) and double-click
+   it whenever you want to download something.
+
+It starts the server hidden (no lingering console window), opens the downloader
+in your browser, and closes its own window. If the server is already running it
+just opens the browser. Your personal copy is git-ignored so your local path
+never gets committed.
 
 ## Configuration
 

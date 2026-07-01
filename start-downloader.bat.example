@@ -1,0 +1,52 @@
+@echo off
+setlocal
+
+REM ============================================================
+REM  Video Downloader - one-click launcher (template)
+REM
+REM  HOW TO USE:
+REM    1. Copy this file and rename the copy to start-downloader.bat
+REM    2. Set PROJECT_DIR below to the full path of this project,
+REM       e.g. set "PROJECT_DIR=C:\Users\you\Video-Downloder"
+REM    3. Put the copy anywhere you like (Desktop, taskbar, ...)
+REM       and double-click it whenever you want to download.
+REM
+REM  What it does:
+REM    - starts the local server hidden (no taskbar window)
+REM    - opens the downloader in your browser
+REM    - closes its own window automatically
+REM    - if the server is already running, just opens the browser
+REM ============================================================
+
+set "PROJECT_DIR=C:\path\to\Video-Downloder"
+set "PORT=3000"
+set "URL=http://localhost:%PORT%"
+
+REM --- Re-launch hidden so no console lingers in the taskbar ---
+if not "%~1"=="__hidden" (
+    where node >nul 2>nul || (
+        echo Node.js was not found on PATH.
+        echo Install it from https://nodejs.org and run this again.
+        pause
+        exit /b 1
+    )
+    powershell -NoProfile -WindowStyle Hidden -Command "Start-Process -FilePath '%~f0' -ArgumentList '__hidden' -WindowStyle Hidden"
+    exit /b
+)
+
+REM --- Hidden section ---
+cd /d "%PROJECT_DIR%" || exit /b 1
+
+REM Already running? Just open the browser and quit.
+netstat -ano | findstr /r /c:":%PORT% .*LISTENING" >nul 2>nul && (
+    start "" "%URL%"
+    exit /b
+)
+
+REM Start the server as an independent hidden process.
+powershell -NoProfile -WindowStyle Hidden -Command "Start-Process -FilePath 'node' -ArgumentList 'src\server.js' -WorkingDirectory '%PROJECT_DIR%' -WindowStyle Hidden"
+
+REM Give it a moment to boot, then open the site.
+timeout /t 2 /nobreak >nul
+start "" "%URL%"
+exit /b
