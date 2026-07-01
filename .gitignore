@@ -21,3 +21,4 @@ Thumbs.db
 
 # Personal launcher (contains an absolute path); ship the .example instead
 start-downloader.bat
+stop-downloader.bat

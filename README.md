@@ -79,6 +79,10 @@ in your browser, and closes its own window. If the server is already running it
 just opens the browser. Your personal copy is git-ignored so your local path
 never gets committed.
 
+To shut the server down, do the same with `stop-downloader.bat.example` — copy
+it to `stop-downloader.bat` and double-click it whenever you want to stop the
+server. (This one needs no path editing.)
+
 ## Configuration
 
 The app can be configured through environment variables:
