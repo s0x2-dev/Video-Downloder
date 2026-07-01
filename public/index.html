@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Downloader</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <main class="app">
+        <header class="app__header">
+            <div class="logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3v12" />
+                    <path d="m7 10 5 5 5-5" />
+                    <path d="M5 21h14" />
+                </svg>
+            </div>
+            <h1 class="app__title">Video Downloader</h1>
+            <p class="app__subtitle">
+                Paste a link from almost any site and download it as MP4 or MP3.
+                Powered by yt-dlp — 1000+ supported platforms.
+            </p>
+        </header>
+
+        <section class="panel">
+            <label class="field">
+                <span class="field__label">Video URL</span>
+                <input type="text" id="url" class="field__input" placeholder="https://..." autocomplete="off"
+                    spellcheck="false" />
+            </label>
+
+            <label class="field">
+                <span class="field__label">Quality</span>
+                <select id="quality" class="field__input">
+                    <option value="best">Best available</option>
+                    <option value="1080">1080p</option>
+                    <option value="720" selected>720p</option>
+                    <option value="480">480p</option>
+                    <option value="audio">Audio only (MP3)</option>
+                </select>
+            </label>
+
+            <label class="checkbox">
+                <input type="checkbox" id="forceMp4" />
+                <span>Force MP4 re-encode (slower, but plays everywhere)</span>
+            </label>
+
+            <button id="infoBtn" class="btn btn--primary">Get info</button>
+        </section>
+
+        <section class="result" id="card" hidden>
+            <img id="thumb" class="result__thumb" alt="" hidden />
+            <div class="result__title" id="title"></div>
+            <div class="result__meta" id="meta"></div>
+
+            <button id="downloadBtn" class="btn btn--primary">Download</button>
+
+            <div class="progress" id="barWrap" hidden>
+                <div class="progress__fill" id="bar"></div>
+            </div>
+
+            <div class="status" id="status"></div>
+            <div class="error" id="error"></div>
+        </section>
+
+        <footer class="app__footer">
+            For personal use. Respect the copyright and terms of the sites you download from.
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
