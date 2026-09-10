@@ -4,7 +4,7 @@ const urlInput = $("url");
 const qualitySelect = $("quality");
 const forceMp4Checkbox = $("forceMp4");
 const infoBtn = $("infoBtn");
-const infoLabel = infoBtn.querySelector(".pill__label");
+const infoLabel = infoBtn.querySelector(".btn__label");
 const downloadBtn = $("downloadBtn");
 const card = $("card");
 const thumb = $("thumb");
@@ -15,7 +15,6 @@ const bar = $("bar");
 const pctEl = $("pct");
 const statusEl = $("status");
 const errorEl = $("error");
-const cursorGlow = $("cursorGlow");
 
 let currentJobId = null;
 
@@ -24,8 +23,6 @@ downloadBtn.addEventListener("click", startDownload);
 urlInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter") getInfo();
 });
-
-setupCursorGlow();
 
 async function getInfo() {
     const url = urlInput.value.trim();
@@ -82,7 +79,7 @@ async function startDownload() {
     clearMessages();
     downloadBtn.disabled = true;
     barWrap.hidden = false;
-    statusEl.textContent = "Preparing...";
+    statusEl.textContent = "Preparing…";
     setProgress(0);
 
     try {
@@ -122,7 +119,7 @@ function trackProgress(jobId) {
         } else if (data.status === "done") {
             source.close();
             setProgress(100);
-            statusEl.textContent = "Saving to your device...";
+            statusEl.textContent = "Saving to your device…";
             window.location = `/api/file/${jobId}`;
             setTimeout(() => {
                 statusEl.textContent = "Saved.";
@@ -150,7 +147,7 @@ function setProgress(percent) {
 function setInfoLoading(isLoading) {
     infoBtn.disabled = isLoading;
     infoBtn.classList.toggle("is-loading", isLoading);
-    infoLabel.textContent = isLoading ? "Analyzing..." : "Analyze link";
+    infoLabel.textContent = isLoading ? "Analyzing…" : "Analyze link";
 }
 
 function clearMessages() {
@@ -165,30 +162,4 @@ function formatDuration(totalSeconds) {
     const secs = seconds % 60;
     const pad = (n) => String(n).padStart(2, "0");
     return hours > 0 ? `${hours}:${pad(minutes)}:${pad(secs)}` : `${minutes}:${pad(secs)}`;
-}
-
-function setupCursorGlow() {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-
-    const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const current = { ...target };
-    let visible = false;
-
-    window.addEventListener("mousemove", (event) => {
-        target.x = event.clientX;
-        target.y = event.clientY;
-        if (!visible) {
-            visible = true;
-            cursorGlow.style.opacity = "1";
-        }
-    });
-
-    const tick = () => {
-        current.x += (target.x - current.x) * 0.12;
-        current.y += (target.y - current.y) * 0.12;
-        cursorGlow.style.transform = `translate(${current.x}px, ${current.y}px) translate(-50%, -50%)`;
-        requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
 }
