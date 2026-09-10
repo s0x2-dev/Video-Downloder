@@ -15,7 +15,7 @@
 </head>
 
 <body>
-  <!-- Ambient, slowly drifting aurora + film grain -->
+
   <div class="aurora" aria-hidden="true">
     <span class="aurora__blob aurora__blob--a"></span>
     <span class="aurora__blob aurora__blob--b"></span>
@@ -23,7 +23,6 @@
   </div>
   <div class="grain" aria-hidden="true"></div>
 
-  <!-- Success confetti -->
   <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
 
   <header class="topbar reveal">
@@ -121,7 +120,6 @@
         <span class="spinner" aria-hidden="true"></span>
       </button>
 
-      <!-- Big preview of the video being fetched -->
       <div class="preview" id="preview">
         <div class="preview__frame">
           <img id="thumb" class="preview__thumb" alt="" hidden />
@@ -135,7 +133,6 @@
           <span class="badge preview__source" id="source" hidden></span>
           <span class="badge preview__duration" id="duration" hidden></span>
 
-          <!-- Radial progress that lives over the preview during a download -->
           <div class="ring" id="ring" hidden>
             <svg class="ring__svg" viewBox="0 0 120 120" width="118" height="118">
               <circle class="ring__bg" cx="60" cy="60" r="52" />
@@ -156,7 +153,6 @@
         <p class="preview__meta" id="meta"></p>
       </div>
 
-      <!-- Linear progress -->
       <div class="progress" id="barWrap">
         <div class="progress__head">
           <span class="progress__status" id="status"><span class="dot" aria-hidden="true"></span>Preparing…</span>
@@ -167,7 +163,6 @@
         </div>
       </div>
 
-      <!-- Contextual actions -->
       <div class="actions" id="actions">
         <button id="downloadBtn" class="btn btn--primary spotlight">
           <span class="btn__label">Download</span>

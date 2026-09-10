@@ -1,13 +1,5 @@
-/* ============================================================
-   Fetch — interactive redesign
-   A calm near-monochrome surface with a living aurora, glassy
-   card, spotlight buttons, a big cinematic preview, an animated
-   progress ring, confetti and toasts. Light + dark share one
-   structure and every motion respects prefers-reduced-motion.
-   ============================================================ */
-
 :root {
-    /* Light — soft warm paper */
+
     --bg: #faf9f7;
     --surface: #ffffff;
     --raised: #f4f3f0;
@@ -23,7 +15,6 @@
     --danger: #c0392f;
     --good: #1c9c6b;
 
-    /* Monochrome primary button */
     --solid-bg: #1b1b1a;
     --solid-ink: #faf9f7;
 
@@ -43,7 +34,6 @@
     color-scheme: light dark;
 }
 
-/* Explicit theme overrides (set via the toggle) */
 :root[data-theme="dark"] {
     --bg: #0b0b0c;
     --surface: #131315;
@@ -67,7 +57,6 @@
     --grain-opacity: 0.05;
 }
 
-/* System dark (only when the user hasn't forced a theme) */
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]):not([data-theme="dark"]) {
         --bg: #0b0b0c;
@@ -119,9 +108,6 @@ body {
     transition: background 0.4s var(--ease), color 0.4s var(--ease);
 }
 
-/* ============================================================
-   Ambient background — drifting aurora + film grain
-   ============================================================ */
 .aurora {
     position: fixed;
     inset: 0;
@@ -203,9 +189,6 @@ body {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ============================================================
-   Reveal on load / scroll
-   ============================================================ */
 @keyframes rise {
     from {
         opacity: 0;
@@ -224,9 +207,6 @@ body {
     animation-delay: var(--d, 0s);
 }
 
-/* ============================================================
-   Top bar
-   ============================================================ */
 .topbar {
     position: relative;
     z-index: 10;
@@ -299,7 +279,6 @@ body {
     transition: opacity 0.25s var(--ease), transform 0.35s var(--spring);
 }
 
-/* Which glyph shows depends on the resolved theme mode */
 .icon--sun,
 .icon--moon,
 .icon--system {
@@ -315,9 +294,6 @@ body {
     transform: none;
 }
 
-/* ============================================================
-   Stage
-   ============================================================ */
 .stage {
     position: relative;
     z-index: 10;
@@ -369,7 +345,6 @@ body {
     color: var(--muted);
 }
 
-/* Feature chips */
 .chips {
     display: flex;
     flex-wrap: wrap;
@@ -400,9 +375,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* ============================================================
-   Card — glass surface with a pointer-tracking glow
-   ============================================================ */
 .card {
     position: relative;
     width: 100%;
@@ -417,7 +389,6 @@ body {
     transition: transform 0.3s var(--ease);
 }
 
-/* Cursor-following highlight */
 .card__glow {
     position: absolute;
     inset: 0;
@@ -438,9 +409,6 @@ body {
     z-index: 1;
 }
 
-/* ============================================================
-   Fields
-   ============================================================ */
 .field {
     min-width: 0;
 }
@@ -481,7 +449,6 @@ body {
     box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
-/* URL field with inline actions */
 .url {
     position: relative;
 }
@@ -530,9 +497,6 @@ body {
     display: none;
 }
 
-/* ============================================================
-   Controls row: segmented format + switch
-   ============================================================ */
 .controls {
     display: flex;
     align-items: flex-end;
@@ -593,7 +557,6 @@ body {
     outline-offset: 2px;
 }
 
-/* Switch */
 .switch {
     display: inline-flex;
     align-items: center;
@@ -660,9 +623,6 @@ body {
     box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
-/* ============================================================
-   Buttons
-   ============================================================ */
 .btn {
     position: relative;
     display: flex;
@@ -731,7 +691,6 @@ body {
     opacity: 0.8;
 }
 
-/* Spotlight glow that follows the cursor across a button */
 .spotlight::before {
     content: "";
     position: absolute;
@@ -750,7 +709,6 @@ body {
     opacity: 1;
 }
 
-/* Ripple */
 .ripple {
     position: absolute;
     border-radius: 50%;
@@ -768,7 +726,6 @@ body {
     }
 }
 
-/* Spinner */
 .spinner {
     display: none;
     flex: none;
@@ -795,9 +752,6 @@ body {
     }
 }
 
-/* ============================================================
-   Preview — the big cinematic card
-   ============================================================ */
 .preview {
     margin-top: 20px;
     padding-top: 20px;
@@ -852,7 +806,6 @@ body {
     display: none;
 }
 
-/* Diagonal sheen sweeping across the frame */
 .preview__sheen {
     position: absolute;
     inset: 0;
@@ -931,7 +884,6 @@ body {
     display: none;
 }
 
-/* Progress ring that overlays the frame while downloading */
 .ring {
     position: absolute;
     inset: 0;
@@ -972,7 +924,6 @@ body {
     font-variant-numeric: tabular-nums;
 }
 
-/* Success check that pops over the frame */
 .preview__done {
     position: absolute;
     inset: 0;
@@ -1001,9 +952,6 @@ body {
     }
 }
 
-/* ============================================================
-   Linear progress
-   ============================================================ */
 .progress {
     margin-top: 16px;
     display: none;
@@ -1077,9 +1025,6 @@ body {
     }
 }
 
-/* ============================================================
-   Actions
-   ============================================================ */
 .actions {
     display: none;
     margin-top: 16px;
@@ -1092,9 +1037,6 @@ body {
     gap: 10px;
 }
 
-/* ============================================================
-   State machine — what shows in each phase
-   ============================================================ */
 .card[data-state="idle"] #infoBtn {
     display: flex;
 }
@@ -1130,15 +1072,11 @@ body {
     display: grid;
 }
 
-/* While downloading, keep the controls from shifting under the user */
 .card[data-state="downloading"] .controls {
     opacity: 0.55;
     pointer-events: none;
 }
 
-/* ============================================================
-   Error
-   ============================================================ */
 .error {
     margin: 14px 0 0;
     font-size: 13px;
@@ -1152,9 +1090,6 @@ body {
     display: none;
 }
 
-/* ============================================================
-   Hint + footer
-   ============================================================ */
 .hint {
     margin: 18px 0 0;
     font-size: 12px;
@@ -1191,9 +1126,6 @@ body {
     background: var(--faint);
 }
 
-/* ============================================================
-   Confetti canvas
-   ============================================================ */
 .confetti {
     position: fixed;
     inset: 0;
@@ -1203,9 +1135,6 @@ body {
     pointer-events: none;
 }
 
-/* ============================================================
-   Toasts
-   ============================================================ */
 .toasts {
     position: fixed;
     z-index: 70;
@@ -1277,9 +1206,6 @@ body {
     }
 }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
 @media (max-width: 480px) {
     .controls {
         flex-direction: column;
@@ -1301,9 +1227,6 @@ body {
     }
 }
 
-/* ============================================================
-   Reduced motion — calm everything down
-   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
 
     *,
