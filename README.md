@@ -10,8 +10,12 @@ for merging and re-encoding.
 - Download from 1000+ platforms supported by yt-dlp
 - Quality presets: best available, 1080p, 720p, 480p, or audio-only (MP3)
 - Optional MP4 re-encode for maximum player compatibility
-- Live download progress via Server-Sent Events
-- Clean, modern single-page interface
+- Live download progress via Server-Sent Events, shown as a big radial ring on the preview
+- Large cinematic preview of the video being fetched (thumbnail, source, duration)
+- Interactive single-page interface: segmented format picker, paste-from-clipboard,
+  clear / reset / new-link controls, light · dark · system theme toggle, keyboard shortcuts,
+  and a confetti flourish when a download finishes
+- Motion respects `prefers-reduced-motion`
 - Runs locally, no external services
 
 ## Requirements
@@ -58,10 +62,14 @@ Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Usage
 
-1. Paste a video URL into the input field.
-2. Click **Analyze link** to preview the title, thumbnail, and duration.
-3. Choose a quality preset (and optionally enable **Force MP4**).
-4. Click **Download** — the file is saved to your device when it finishes.
+1. Paste a video URL into the input field (use the **Paste** button or `⌘/Ctrl`+`V`).
+2. Click **Analyze link** (or press `Enter`) to see a large preview with the title,
+   thumbnail, source, and duration.
+3. Choose a quality preset in the segmented picker (and optionally enable **Force MP4**).
+4. Click **Download** (or press `⌘/Ctrl`+`Enter`) — the file is saved to your device
+   when it finishes, and progress is shown as a ring on the preview.
+5. Use **New link** to fetch another video with the same settings, **Reset** (or `Esc`)
+   to start fresh, and the top-right toggle to switch between light, dark, and system themes.
 
 ## One-click launcher (Windows)
 
