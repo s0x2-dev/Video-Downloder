@@ -5,157 +5,94 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="color-scheme" content="light dark" />
-  <meta name="theme-color" content="#f4f3ee" />
+  <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#faf9f7" media="(prefers-color-scheme: light)" />
   <title>Fetch — save any video</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <div class="aura" aria-hidden="true"></div>
-  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="halo" aria-hidden="true"></div>
 
-  <nav class="nav reveal" style="--delay: 0.05s">
-    <a href="#" class="brand">
-      <span class="brand__mark" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 3v12" />
-          <path d="m7 11 5 5 5-5" />
-          <path d="M5 20h14" />
-        </svg>
-      </span>
-      Fetch
-    </a>
-    <span class="chip">
-      <span class="chip__dot" aria-hidden="true"></span>
-      yt-dlp engine
-    </span>
-  </nav>
+  <header class="topbar reveal">
+    <span class="wordmark">Fetch</span>
+  </header>
 
   <main class="stage">
-    <header class="hero">
-      <p class="hero__eyebrow reveal" style="--delay: 0.1s">1000+ supported platforms</p>
-      <h1 class="hero__title reveal" style="--delay: 0.16s">
-        Every video,
-        <span class="hero__title-em">yours to keep.</span>
-      </h1>
-      <p class="hero__lede reveal" style="--delay: 0.24s">
-        Paste a link from almost any site, pick a format, and save it —
-        MP4 or MP3, right on your own machine.
+    <section class="intro">
+      <h1 class="intro__title reveal" style="--d: 0.04s">Save any video.</h1>
+      <p class="intro__lede reveal" style="--d: 0.1s">
+        Paste a link, choose a format, and keep the file — MP4 or MP3, right on your own machine.
       </p>
-    </header>
+    </section>
 
-    <section class="panel reveal" style="--delay: 0.32s" aria-label="Downloader">
+    <section class="card reveal" style="--d: 0.16s" aria-label="Downloader">
       <div class="field">
-        <label class="field__label" for="url">Video link</label>
-        <div class="field__control">
-          <span class="field__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 15 15 9" />
-              <path d="M11 6.5 12.5 5a4 4 0 0 1 5.7 5.7l-1.5 1.5" />
-              <path d="M13 17.5 11.5 19a4 4 0 0 1-5.7-5.7l1.5-1.5" />
-            </svg>
-          </span>
-          <input type="text" id="url" class="field__input" placeholder="https://..." autocomplete="off"
-            spellcheck="false" />
-        </div>
+        <label class="field__label" for="url">Link</label>
+        <input type="text" id="url" class="input" placeholder="https://…" autocomplete="off" spellcheck="false" />
       </div>
 
-      <div class="field-row">
+      <div class="row">
         <div class="field">
           <label class="field__label" for="quality">Format</label>
-          <div class="select-wrap">
-            <select id="quality" class="field__input">
+          <div class="select">
+            <select id="quality" class="input">
               <option value="best">Best available</option>
               <option value="1080">1080p</option>
               <option value="720" selected>720p</option>
               <option value="480">480p</option>
-              <option value="audio">Audio only — MP3</option>
+              <option value="audio">Audio · MP3</option>
             </select>
           </div>
         </div>
 
-        <label class="toggle" for="forceMp4">
-          <span class="toggle__text">
-            Force MP4
-            <em>plays everywhere</em>
-          </span>
-          <input type="checkbox" id="forceMp4" class="toggle__input" />
-          <span class="toggle__switch" aria-hidden="true"></span>
+        <label class="switch" for="forceMp4">
+          <span class="switch__text">Force MP4</span>
+          <input type="checkbox" id="forceMp4" class="switch__input" />
+          <span class="switch__track" aria-hidden="true"></span>
         </label>
       </div>
 
-      <button id="infoBtn" class="pill pill--ghost">
-        <span class="pill__fill" aria-hidden="true"></span>
-        <span class="pill__label">Analyze link</span>
-        <span class="pill__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M7 17 17 7" />
-            <path d="M7 7h10v10" />
-          </svg>
-        </span>
+      <button id="infoBtn" class="btn btn--ghost">
+        <span class="btn__label">Analyze link</span>
+        <span class="spinner" aria-hidden="true"></span>
       </button>
 
-      <div class="output" id="output">
-        <div class="preview">
-          <img id="thumb" class="preview__img" alt="" hidden />
-          <div class="preview__empty" id="outputEmpty">
-            <span class="preview__empty-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="4" />
-                <path d="m10 9 5 3-5 3z" />
-              </svg>
-            </span>
-            <p class="preview__empty-text">Your video shows up here once you analyze a link.</p>
+      <div class="result" id="card" hidden>
+        <div class="result__media">
+          <img id="thumb" class="result__thumb" alt="" hidden />
+          <div class="result__text">
+            <h2 class="result__title" id="title"></h2>
+            <p class="result__meta" id="meta"></p>
           </div>
         </div>
 
-        <div class="result" id="card" hidden>
-          <div class="media">
-            <p class="media__eyebrow">Ready to save</p>
-            <h2 class="media__title" id="title"></h2>
-            <p class="media__meta" id="meta"></p>
+        <div class="progress" id="barWrap" hidden>
+          <div class="progress__head">
+            <span id="status">Preparing…</span>
+            <span class="progress__pct" id="pct">0.0%</span>
           </div>
-
-          <div class="progress" id="barWrap" hidden>
-            <div class="progress__head">
-              <span class="progress__status" id="status">Preparing...</span>
-              <span class="progress__pct" id="pct">0.0%</span>
-            </div>
-            <div class="progress__track">
-              <div class="progress__fill" id="bar"></div>
-            </div>
+          <div class="progress__track">
+            <div class="progress__fill" id="bar"></div>
           </div>
-
-          <button id="downloadBtn" class="pill pill--solid">
-            <span class="pill__label">Download</span>
-            <span class="pill__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 4v11" />
-                <path d="m7 11 5 5 5-5" />
-                <path d="M5 20h14" />
-              </svg>
-            </span>
-          </button>
-
-          <p class="output__error" id="error"></p>
         </div>
+
+        <button id="downloadBtn" class="btn btn--primary">
+          <span class="btn__label">Download</span>
+        </button>
+
+        <p class="error" id="error"></p>
       </div>
     </section>
   </main>
 
-  <footer class="foot reveal" style="--delay: 0.4s">
-    <span class="foot__brand">Fetch</span>
-    <span class="foot__note">For personal use. Respect the copyright and terms of the sites you download from.</span>
+  <footer class="footer reveal" style="--d: 0.22s">
+    <span>Fetch</span>
+    <span class="footer__dot" aria-hidden="true"></span>
+    <span>For personal use. Respect each site's terms.</span>
   </footer>
 
   <script src="app.js"></script>
