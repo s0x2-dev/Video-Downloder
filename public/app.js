@@ -1,12 +1,3 @@
-/* ============================================================
-   Fetch — front-end interactivity
-   Vanilla JS, no dependencies. Talks to the same backend:
-     POST /api/info      -> { title, thumbnail, duration, source }
-     POST /api/start     -> { jobId }
-     GET  /api/progress/:jobId  (SSE) -> { status, progress, error }
-     GET  /api/file/:jobId       (file download)
-   ============================================================ */
-
 const $ = (id) => document.getElementById(id);
 
 const card = $("card");
@@ -50,7 +41,7 @@ const QUALITY_LABELS = {
     audio: "Audio",
 };
 
-const RING_CIRCUMFERENCE = 2 * Math.PI * 52; // r = 52 in the SVG
+const RING_CIRCUMFERENCE = 2 * Math.PI * 52;
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const finePointer = window.matchMedia("(pointer: fine)").matches;
@@ -62,16 +53,10 @@ const state = {
     lastPct: 0,
 };
 
-/* ------------------------------------------------------------
-   State machine
-   ------------------------------------------------------------ */
 function setState(name) {
     card.dataset.state = name;
 }
 
-/* ------------------------------------------------------------
-   Theme: cycles system -> light -> dark, persisted
-   ------------------------------------------------------------ */
 const THEMES = ["system", "light", "dark"];
 
 function applyTheme(theme) {
@@ -98,9 +83,6 @@ themeToggle.addEventListener("click", () => {
     toast(`${next[0].toUpperCase()}${next.slice(1)} theme`);
 });
 
-/* ------------------------------------------------------------
-   Segmented format control (radiogroup)
-   ------------------------------------------------------------ */
 function selectQuality(value, focus = false) {
     const idx = segs.findIndex((s) => s.dataset.value === value);
     if (idx === -1) return;
@@ -142,9 +124,6 @@ function updateMeta() {
     metaEl.textContent = out;
 }
 
-/* ------------------------------------------------------------
-   URL field: clear / paste, revert to idle when edited
-   ------------------------------------------------------------ */
 function refreshClearBtn() {
     clearBtn.hidden = urlInput.value.trim().length === 0;
 }
@@ -153,7 +132,7 @@ urlInput.addEventListener("input", () => {
     refreshClearBtn();
     if (card.dataset.state === "downloading") return;
     if (urlInput.value.trim() !== state.analyzedUrl) {
-        // The link changed since the last analyze — fold back to the start.
+
         if (card.dataset.state !== "idle") {
             setState("idle");
             clearMessages();
@@ -186,9 +165,6 @@ pasteBtn.addEventListener("click", async () => {
     }
 });
 
-/* ------------------------------------------------------------
-   Analyze
-   ------------------------------------------------------------ */
 infoBtn.addEventListener("click", getInfo);
 
 async function getInfo() {
@@ -253,9 +229,6 @@ function renderInfo(data, url) {
     setState("analyzed");
 }
 
-/* ------------------------------------------------------------
-   Download
-   ------------------------------------------------------------ */
 downloadBtn.addEventListener("click", startDownload);
 
 async function startDownload() {
@@ -324,9 +297,6 @@ function trackProgress(jobId) {
     };
 }
 
-/* ------------------------------------------------------------
-   Progress rendering (bar + ring + counting number)
-   ------------------------------------------------------------ */
 function setProgress(percent, instant = false) {
     const target = Math.max(0, Math.min(100, percent));
     bar.style.width = `${target}%`;
@@ -356,9 +326,6 @@ function animateNumber(from, to, onUpdate, duration = 420) {
     requestAnimationFrame(frame);
 }
 
-/* ------------------------------------------------------------
-   Reset / New link
-   ------------------------------------------------------------ */
 function resetToIdle({ keepUrl = false, keepFormat = true } = {}) {
     if (!keepUrl) {
         urlInput.value = "";
@@ -394,9 +361,6 @@ resetBtn.addEventListener("click", () => {
     toast("Reset");
 });
 
-/* ------------------------------------------------------------
-   Small helpers
-   ------------------------------------------------------------ */
 function setInfoLoading(isLoading) {
     infoBtn.disabled = isLoading;
     infoBtn.classList.toggle("is-loading", isLoading);
@@ -421,9 +385,6 @@ function formatDuration(totalSeconds) {
     return hours > 0 ? `${hours}:${pad(minutes)}:${pad(secs)}` : `${minutes}:${pad(secs)}`;
 }
 
-/* ------------------------------------------------------------
-   Toasts
-   ------------------------------------------------------------ */
 function toast(message, type = "info") {
     const el = document.createElement("div");
     el.className = `toast toast--${type}`;
@@ -436,13 +397,10 @@ function toast(message, type = "info") {
         el.classList.add("is-out");
         el.addEventListener("animationend", () => el.remove(), { once: true });
     }
-    // Keep at most four toasts on screen.
+
     while (toasts.children.length > 4) toasts.firstChild.remove();
 }
 
-/* ------------------------------------------------------------
-   Confetti (tiny canvas burst, no dependency)
-   ------------------------------------------------------------ */
 function fireConfetti() {
     if (reduceMotion) return;
     const ctx = confettiCanvas.getContext("2d");
@@ -502,9 +460,6 @@ function fireConfetti() {
     tick();
 }
 
-/* ------------------------------------------------------------
-   Pointer flourishes: spotlight, card glow + tilt, ripple
-   ------------------------------------------------------------ */
 function attachSpotlight(el) {
     el.addEventListener("pointermove", (e) => {
         const r = el.getBoundingClientRect();
@@ -535,7 +490,6 @@ if (finePointer && !reduceMotion) {
     });
 }
 
-// Material-style ripple on the main buttons.
 [infoBtn, downloadBtn, newBtn, resetBtn].forEach((btn) => {
     btn.addEventListener("pointerdown", (e) => {
         if (reduceMotion || btn.disabled) return;
@@ -551,9 +505,6 @@ if (finePointer && !reduceMotion) {
     });
 });
 
-/* ------------------------------------------------------------
-   Keyboard shortcuts
-   ------------------------------------------------------------ */
 document.addEventListener("keydown", (e) => {
     if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
         if (card.dataset.state === "analyzed" || card.dataset.state === "done") {
@@ -571,9 +522,6 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-/* ------------------------------------------------------------
-   Boot
-   ------------------------------------------------------------ */
 initTheme();
 selectQuality("720");
 refreshClearBtn();
