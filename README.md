@@ -52,8 +52,8 @@ If you prefer not to install ffmpeg globally, drop the `ffmpeg` binary into a fo
 ## Getting started
 
 ```bash
-git clone https://github.com/S0x2/Video-Downloder.git
-cd Video-Downloder
+git clone https://github.com/S0x2/Video-Downloader.git
+cd Video-Downloader
 npm install
 npm start
 ```
